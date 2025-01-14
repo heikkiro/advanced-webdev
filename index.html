@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Heikki Rousu">
+    <meta name="description" content="Heikki's Single Page Web App">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heikki's Single Page Web App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="top-of-page">
+        <h1> Welcome to Heikki's single page web app practise page </h1>
+        <nav>
+            <ul class="navbar">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>This page is just part of the first assigment of the advanced web development course</p>
+            <br>
+            <p>Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+                ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Ut nisl risus, venenatis quis
+                egestas convallis, imperdiet sit amet diam. Etiam turpis nisi, facilisis
+                vel sapien quis, finibus rutrum nisl. Nam sodales libero nec lacinia feugiat. Sed vestibulum consectetur
+                nibh, id faucibus justo. In sem sem, hendrerit quis dui in, tincidunt dapibus tellus.
+                Curabitur varius in lacus a sodales. Aenean
+                lacinia euismod nulla, ac gravida est sollicitudin a. Quisque nec tortor massa. Donec nec euismod mi.
+                Aenean dignissim urna magna, eget venenatis odio bibendum vitae.</p>
+            <br>
+            <p>Nam consequat sit amet nisl a pretium. Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+                ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Curabitur facilisis turpis ac
+                lacus maximus, id convallis magna sagittis. Praesent tellus magna, commodo et iaculis id, tristique ac
+                mauris. Aliquam aliquet, lectus sed ultricies eleifend, urna augue placerat ante, vel sagittis urna
+                felis id magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                himenaeos.</p>
+        </section>
+
+        <section id="about" class="section">
+            <h2>About</h2>
+            <p>This page is meant to combine HTML, CSS and JavaScript in one web page.</p>
+            <br>
+            <p>JavaScript part is on the contact form part and it is implemented with the help of ChatGPT at this point of the
+                course.</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur varius in lacus a sodales. Aenean
+                lacinia euismod nulla, ac gravida est sollicitudin a. Quisque nec tortor massa. Donec nec euismod mi.
+                Aenean dignissim urna magna, eget venenatis odio bibendum vitae. Aliquam luctus dapibus ex id hendrerit.
+                In hac habitasse platea dictumst.</p>
+            <br>
+            <p>Ut nisl risus, venenatis quis egestas convallis, imperdiet sit amet diam. Etiam turpis nisi, facilisis
+            vel sapien quis, finibus rutrum nisl. Nam sodales libero nec lacinia feugiat. Sed vestibulum consectetur
+            nibh, id faucibus justo. In sem sem, hendrerit quis dui in, tincidunt dapibus tellus. Fusce sed nibh
+            porttitor, ullamcorper ex ac, suscipit eros. In in dui semper, dignissim ex sollicitudin, iaculis sem.
+
+            Nam consequat sit amet nisl a pretium. Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+            ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Curabitur facilisis turpis ac
+            lacus maximus, id convallis magna sagittis. Praesent tellus magna, commodo et iaculis id, tristique ac
+            mauris. Aliquam aliquet, lectus sed ultricies eleifend, urna augue placerat ante, vel sagittis urna
+            felis id magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</p>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <form name="Contact" method="POST" target="_blank">
+                <!--input type="text"--> <!-- placeholder ja title pitäisi olla joka paikassa, jos laittaa johonkin-->
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="f_name" placeholder="First and lastname" autofocus required>
+
+                <!--input type="email"-->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="s-posti" placeholder="john@doe.com" required>
+
+                <!--textarea-->
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4"
+                    placeholder="Write your message here, please."></textarea>
+
+                <!--button-->
+                <div class="send">
+                    <button type="submit">Sumbit</button>
+                    <button type="reset">Clear</button>
+                </div>
+            </form>
+            <p id="formfeedback"></p>
+
+        </section>
+
+    </main>
+    <footer>
+        <a href="#top">Back to top</a>
+        <p> <br></p>
+        <p>&copy; 2025 Heikki R.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
