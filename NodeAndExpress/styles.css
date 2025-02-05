@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(255, 245, 233);
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.699);
+    padding: 20px 30px 10px 30px;
+    color: rgb(161, 225, 255);
+}
+
+/* NAVIGATION STYLING */
+nav {
+    align-self: center;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+nav ul {
+    gap: 10px 10px;
+    font-size: 18px;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    gap: 15px;
+    padding: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+nav ul li a:hover{
+    color: yellowgreen;
+}
+
+main {
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.section {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 50px;
+    padding: 20px;
+    gap: 20px 30px; 
+    background-color: snow;
+    border: 1px solid black;
+    text-wrap: wrap;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 10px 5px 5px grey;
+    position: relative;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.699);
+    color: azure;
+    text-align: center;
+    padding: 20px;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    color: azure;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* FORM STYLING */
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+}
+
+label {
+    margin-top: 20px;
+}
+
+input,  textarea, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 2px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#message{
+    margin-top: 2px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.send {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+    
+}
+
+button[type=submit] {
+    background-color: rgb(92, 92, 255);
+    color: white;
+    border: 2px solid rgb(91, 91, 255);
+}
+
+button[type=reset] {
+    background-color: rgb(140, 0, 0);
+    color: white;
+    border: 2px solid rgb(141, 0, 0);
+}
+
+button:hover {
+    border: 2px solid rgb(0, 0, 0);
+    opacity: 0.8;
+}
+
+#formfeedback {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width:768px) {
+    nav {
+        display: block;
+        width: 100%;
+    }
+}

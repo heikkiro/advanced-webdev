@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Heikki Rousu">
+    <meta name="description" content="Heikki's Single Page Web App">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heikki's Single Page Web App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(255, 245, 233);
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            border: 1px solid black;
+            background-color: rgb(79, 79, 79);
+            padding: 20px 30px 10px 30px;
+            color: rgb(161, 225, 255);
+        }
+
+        /* NAVIGATION STYLING */
+        nav {
+            align-self: center;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        nav ul {
+            gap: 10px 10px;
+            font-size: 18px;
+            font-variant: small-caps;
+            letter-spacing: 1px;
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.5s;
+        }
+
+        nav ul li a:hover {
+            color: yellowgreen;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .section {
+            margin-left: 10%;
+            margin-right: 10%;
+            margin-bottom: 50px;
+            padding: 20px;
+            gap: 20px 30px;
+            background-color: snow;
+            border: 1px solid black;
+            text-wrap: wrap;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 10px 5px 5px grey;
+            position: relative;
+        }
+
+        footer {
+            background-color: rgb(79, 79, 79);
+            color: azure;
+            text-align: center;
+            padding: 20px;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: azure;
+            text-align: center;
+            padding: 20px;
+        }
+
+
+        /* FORM STYLING */
+        form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 1px;
+
+        }
+        label {
+            margin-top: 20px;
+        }
+
+        input,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 2px;
+            border: 1px solid black;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #message {
+            margin-top: 2px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .send {
+            display: flex;
+            gap: 30px;
+            justify-content: flex-end;
+        }
+
+        button[type=submit] {
+            background-color: rgb(92, 92, 255);
+            color: white;
+            border: 2px solid rgb(91, 91, 255);
+        }
+
+        button[type=reset] {
+            background-color: rgb(140, 0, 0);
+            color: white;
+            border: 2px solid rgb(141, 0, 0);
+        }
+
+        button:hover {
+            border: 2px solid rgb(0, 0, 0);
+            opacity: 0.8;
+        }
+
+        #formfeedback {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media only screen and (max-width:768px) {
+            nav {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="top-of-page">
+        <h1> Welcome to Heikki's single page web app practise page </h1>
+        <nav>
+            <ul class="navbar">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            <p>This page is just part of the first assigment of the advanced web development course</p>
+            <br>
+            <p>Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+                ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Ut nisl risus, venenatis quis
+                egestas convallis, imperdiet sit amet diam. Etiam turpis nisi, facilisis
+                vel sapien quis, finibus rutrum nisl. Nam sodales libero nec lacinia feugiat. Sed vestibulum consectetur
+                nibh, id faucibus justo. In sem sem, hendrerit quis dui in, tincidunt dapibus tellus.
+                Curabitur varius in lacus a sodales. Aenean
+                lacinia euismod nulla, ac gravida est sollicitudin a. Quisque nec tortor massa. Donec nec euismod mi.
+                Aenean dignissim urna magna, eget venenatis odio bibendum vitae.</p>
+            <br>
+            <p>Nam consequat sit amet nisl a pretium. Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+                ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Curabitur facilisis turpis ac
+                lacus maximus, id convallis magna sagittis. Praesent tellus magna, commodo et iaculis id, tristique ac
+                mauris. Aliquam aliquet, lectus sed ultricies eleifend, urna augue placerat ante, vel sagittis urna
+                felis id magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                himenaeos.</p>
+        </section>
+
+        <section id="about" class="section">
+            <h2>About</h2>
+            <p>This page is meant to combine HTML, CSS and JavaScript in one web page.</p>
+            <br>
+            <p>JavaScript part is on the contact form part and it is implemented with the help of ChatGPT at this point of the
+                course.</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur varius in lacus a sodales. Aenean
+                lacinia euismod nulla, ac gravida est sollicitudin a. Quisque nec tortor massa. Donec nec euismod mi.
+                Aenean dignissim urna magna, eget venenatis odio bibendum vitae. Aliquam luctus dapibus ex id hendrerit.
+                In hac habitasse platea dictumst.</p>
+            <br>
+            <p>Ut nisl risus, venenatis quis egestas convallis, imperdiet sit amet diam. Etiam turpis nisi, facilisis
+            vel sapien quis, finibus rutrum nisl. Nam sodales libero nec lacinia feugiat. Sed vestibulum consectetur
+            nibh, id faucibus justo. In sem sem, hendrerit quis dui in, tincidunt dapibus tellus. Fusce sed nibh
+            porttitor, ullamcorper ex ac, suscipit eros. In in dui semper, dignissim ex sollicitudin, iaculis sem.
+
+            Nam consequat sit amet nisl a pretium. Praesent gravida tortor at mi tempus euismod. Nunc varius luctus
+            ipsum commodo ullamcorper. Praesent sodales ullamcorper risus nec blandit. Curabitur facilisis turpis ac
+            lacus maximus, id convallis magna sagittis. Praesent tellus magna, commodo et iaculis id, tristique ac
+            mauris. Aliquam aliquet, lectus sed ultricies eleifend, urna augue placerat ante, vel sagittis urna
+            felis id magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</p>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <form name="Contact" method="POST" target="_blank">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="f_name" placeholder="First and last name" autofocus required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="s-posti" placeholder="e.g. john@doe.com" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4"
+                    placeholder="Write your message here, please."></textarea>
+
+                <div class="send">
+                    <button type="submit">Sumbit</button>
+                    <button type="reset">Clear</button>
+                </div>
+            </form>
+            <p id="formfeedback"></p>
+
+        </section>
+
+    </main>
+    <footer>
+        <a href="#top">Back to top</a>
+        <p> <br></p>
+        <p>&copy; 2025 Heikki R.</p>
+    </footer>
+
+    <script>
+        // JavaScript code created with the help of AI (ChatGPT)
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get references to the form elements
+            const form = document.querySelector("form[name='Contact']");
+            const nameField = document.getElementById("name");
+            const emailField = document.getElementById("email");
+            const messageField = document.getElementById("message");
+            const formFeedback = document.getElementById("formfeedback");
+
+            // Handle form submission
+            form.addEventListener("submit", (event) => {
+                event.preventDefault(); // Prevent the form from actually submitting
+                formFeedback.textContent = "Form submitted successfully!";
+                formFeedback.style.color = "green";
+
+                // Clear the form fields
+                nameField.value = "";
+                emailField.value = "";
+                messageField.value = "";
+            });
+
+            // Handle form clearing
+            form.addEventListener("reset", () => {
+                formFeedback.textContent = "";
+            });
+        });
+    </script>
+
+</body>
