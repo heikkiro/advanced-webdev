@@ -5,7 +5,8 @@ const Tervehdys = () =>{
     <div>
     <p>Tervehdys!</p>
     <p>Tämä sivu on vain lyhyt testi Reactin aloitukseen. <br></br>
-    Olen aloittanut Fullstack open kurssin tänä keväänä, joskin olen ehtinyt vasta osaan 2.</p>
+    Olen aloittanut Fullstack open kurssin tänä keväänä, joskin olen ehtinyt vasta osan 2 tehtävien pariin (tilanne 17.2.2025).<br></br>
+    Linkki Fullstack repositoriooni <a href='https://github.com/heikkiro/fullstackopen-return-repo' target='_blank'> Heikin Fullstack Open-palautusrepositorio</a> . </p>
     </div>
   )
 }
