@@ -7,6 +7,9 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+// Serve static files from the "public" directory
+app.use(express.static('public'));
+
 // Connect to the database
 let db = new sqlite3.Database('./mydatabase.db', (err) => {
     if (err) {
@@ -34,6 +37,9 @@ app.post('/add-user', (req, res) => {
     const { username, birth_date, occupation, premium_user } = req.body;
     db.run(`INSERT INTO users (username, birth_date, occupation, premium_user) VALUES (?, ?, ?, ?)`, [username, birth_date, occupation, premium_user], function(err) {
         if (err) {
+            if (err.message.includes('UNIQUE constraint failed')) {
+                return res.status(400).json({ error: 'Username already exists' });
+            }
             return res.status(500).json({ error: err.message });
         }
         res.status(200).json({ message: `A row has been inserted with rowid ${this.lastID}` });
@@ -56,6 +62,9 @@ app.put('/update-user/:id', (req, res) => {
     const { username, birth_date, occupation, premium_user } = req.body;
     db.run(`UPDATE users SET username = ?, birth_date = ?, occupation = ?, premium_user = ? WHERE id = ?`, [username, birth_date, occupation, premium_user, id], function(err) {
         if (err) {
+            if (err.message.includes('UNIQUE constraint failed')) {
+                return res.status(400).json({ error: 'Username already exists' });
+            }
             return res.status(500).json({ error: err.message });
         }
         res.status(200).json({ message: `Row(s) updated: ${this.changes}` });
