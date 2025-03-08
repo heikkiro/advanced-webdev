@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .maincontent {
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        h1 {
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main class="maincontent">
+        <h1>Database App</h1>
+
+        <h2>Add User</h2>
+        <form id="addUserForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="birth_date">Birth Date (DD.MM.YYYY):</label>
+            <input type="text" id="birth_date" name="birth_date" required><br><br>
+            <label for="occupation">Occupation:</label>
+            <input type="text" id="occupation" name="occupation" required><br><br>
+            <label for="premium_user">Premium User:</label>
+            <input type="checkbox" id="premium_user" name="premium_user"><br><br>
+            <button type="submit">Add User</button>
+        </form>
+
+        <h2>Users</h2>
+        <table id="usersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Birth Date</th>
+                    <th>Occupation</th>
+                    <th>Premium User</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Users will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <script>
+            document.getElementById('addUserForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const birth_date = document.getElementById('birth_date').value;
+                const occupation = document.getElementById('occupation').value;
+                const premium_user = document.getElementById('premium_user').checked;
+
+                fetch('http://localhost:3000/add-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, birth_date, occupation, premium_user })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            alert(data.message);
+                            loadUsers();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            function loadUsers() {
+                fetch('http://localhost:3000/users')
+                    .then(response => response.json())
+                    .then(data => {
+                        const usersTableBody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+                        usersTableBody.innerHTML = '';
+                        data.users.forEach(user => {
+                            const row = usersTableBody.insertRow();
+                            row.insertCell(0).textContent = user.id;
+                            row.insertCell(1).textContent = user.username;
+                            row.insertCell(2).textContent = user.birth_date;
+                            row.insertCell(3).textContent = user.occupation;
+                            row.insertCell(4).textContent = user.premium_user ? 'Yes' : 'No';
+                            const actionsCell = row.insertCell(5);
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.addEventListener('click', () => deleteUser(user.id));
+                            actionsCell.appendChild(deleteButton);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function deleteUser(id) {
+                fetch(`http://localhost:3000/delete-user/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        loadUsers();
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            // Load users when the page loads
+            window.onload = loadUsers;
+        </script>
+    </main>
+</body>
+
+</html>
