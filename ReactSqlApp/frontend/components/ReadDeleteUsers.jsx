@@ -6,7 +6,6 @@ const ReadDeleteUsers = ({ refresh }) => {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
-
     const fetchUsers = async () => {
         try {
             const response = await axios.get("http://localhost:3000/users");
@@ -24,7 +23,6 @@ const ReadDeleteUsers = ({ refresh }) => {
         try {
             await axios.delete(`http://localhost:3000/users/${id}`);
             fetchUsers();
-            // setUsers(users.filter(user => user.id !== id));
             setMessage(`User with ID ${id} deleted successfully.`);
         } catch (error) {
             setMessage("Error: " + (error.response?.data?.error || error.message));
@@ -32,20 +30,34 @@ const ReadDeleteUsers = ({ refresh }) => {
     };
 
     return (
-        <div>
+        <div className="container mt-4">
             <h2>Users List</h2>
-            {error && <p>{error}</p>}
-            {message && <p>{message}</p>}
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        User Id: {user.id} , Username:  {user.username},  User occupation:  ({user.occupation})
-                        <button onClick={() => handleDelete(user.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+            {error && <p className="text-danger">{error}</p>}
+            {message && <p className="text-success">{message}</p>}
+            <table className="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Occupation</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => (
+                        <tr key={user.id}>
+                            <td>{user.id}</td>
+                            <td>{user.username}</td>
+                            <td>{user.occupation}</td>
+                            <td>
+                                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+                </table>
         </div>
     );
 }
 
-export default ReadDeleteUsers
+export default ReadDeleteUsers;

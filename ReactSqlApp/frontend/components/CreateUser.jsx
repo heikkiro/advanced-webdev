@@ -23,7 +23,7 @@ const CreateUser = ({ onUserAdded }) => {
             setUsername("");
             setBirthDate("");
             setOccupation("");
-            setPremiumUser("");
+            setPremiumUser(false);
             if (onUserAdded) onUserAdded(); // Call refresh function
         } catch (error) {
             setMessage("Error: " + (error.response?.data?.error || error.message));
@@ -31,52 +31,57 @@ const CreateUser = ({ onUserAdded }) => {
     };
 
     return (
-        <div>
+        <div className="container mt-4">
             <h2>Create New User</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
+                <div className="mb-3">
+                    <label className="form-label">Username:</label>
                     <input
                         type="text"
+                        className="form-control"
                         placeholder="Username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label>Birth Date:</label>
+                <div className="mb-3">
+                    <label className="form-label">Birth Date:</label>
                     <input
                         type="date"
+                        className="form-control"
                         placeholder="Birth_date (YYYY-MM-DD)"
                         value={birthDate}
                         onChange={(e) => setBirthDate(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label>Occupation:</label>
+                <div className="mb-3">
+                    <label className="form-label">Occupation:</label>
                     <input
                         type="text"
+                        className="form-control"
                         placeholder="Occupation"
                         value={occupation}
                         onChange={(e) => setOccupation(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label>Premium user:</label>
+                <div className="form-check mb-3">
                     <input
                         type="checkbox"
-                        value={premiumUser}
+                        className="form-check-input"
+                        id="premiumUser"
+                        checked={premiumUser}
                         onChange={(e) => setPremiumUser(e.target.checked)}
                     />
+                    <label className="form-check-label" htmlFor="premiumUser">Premium user</label>
                 </div>
                 <div>
-                    <button type="submit">Create</button>
+                    <button type="submit" className="btn btn-primary">Create</button>
                 </div>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p className="mt-3">{message}</p>}
         </div>
     );
 }
