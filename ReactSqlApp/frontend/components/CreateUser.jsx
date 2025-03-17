@@ -80,7 +80,7 @@ const CreateUser = ({ onUserAdded }) => {
                     <label className="form-check-label" htmlFor="premiumUser">Premium user</label>
                 </div>
                 <div>
-                    <button type="submit" className="btn btn-primary">Create</button>
+                    <button id="create-user" type="submit" className="btn btn-primary">Create</button>
                 </div>
             </form>
             {message && <p className="mt-3">{message}</p>}
