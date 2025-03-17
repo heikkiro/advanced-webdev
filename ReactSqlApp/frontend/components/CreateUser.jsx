@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
@@ -46,10 +47,11 @@ const CreateUser = ({ onUserAdded }) => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Birth Date:</label>
+                    <label className="form-label" htmlFor="birthDate">Birth Date:</label>
                     <input
                         type="date"
                         className="form-control"
+                        id="birthDate"
                         placeholder="Birth_date (YYYY-MM-DD)"
                         value={birthDate}
                         onChange={(e) => setBirthDate(e.target.value)}

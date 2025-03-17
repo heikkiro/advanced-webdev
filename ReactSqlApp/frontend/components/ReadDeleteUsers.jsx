@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -45,12 +46,14 @@ const ReadDeleteUsers = ({ refresh }) => {
                 </thead>
                 <tbody>
                     {users.map((user) => (
-                        <tr key={user.id}>
+                        <tr key={user.id} > 
                             <td>{user.id}</td>
                             <td>{user.username}</td>
                             <td>{user.occupation}</td>
                             <td>
-                                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id)}>Delete</button>
+                                <button className="btn btn-danger btn-sm" 
+                                onClick={() => handleDelete(user.id)}
+                                >Delete</button>
                             </td>
                         </tr>
                     ))}
