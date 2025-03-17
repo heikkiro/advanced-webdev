@@ -3,11 +3,11 @@ import { render, screen, fireEvent, waitFor, within, act } from "@testing-librar
 import axios from "axios";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import CreateUser from '../components/CreateUser';
-// import ReadDeleteUsers from '../components/ReadDeleteUsers';
+//import ReadDeleteUsers from '../components/ReadDeleteUsers';  // EI KÄYTETÄ
 
 vi.mock("axios");
 
-// Luodaan sama käyttäjänimi molemmille testeille
+// Luodaan satunnainen käyttäjänimi testeille
 const username = (Math.random() + 1).toString(36).substring(7);
 const year = Math.floor(Math.random() * (2010 - 1930 + 1)) + 1930;
 const month = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
@@ -23,7 +23,7 @@ describe("CreateUser Component", () => {
 
     it("Adds a new user", async () => {
         axios.post.mockResolvedValue({ data: { username } });
-        axios.get.mockResolvedValueOnce({ data: [{ id: 1, username, occupation }] });
+        axios.get.mockResolvedValueOnce({ data: [{ id: 1, username, occupation, birthDate }] });
 
         render(<CreateUser />);
 
