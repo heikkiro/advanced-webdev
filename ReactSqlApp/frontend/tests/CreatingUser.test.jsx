@@ -17,7 +17,7 @@ const occupation = (Math.random() + 1).toString(36).substring(7);
 
 describe("CreateUser Component", () => {
     beforeEach(() => {
-        // Clear mocks before each test to avoid interaction between tests
+        // Puhdista mockaukset ennen jokaista testiä, jotta vältetään ristiriitoja testien välillä
         vi.clearAllMocks();
     });
 
@@ -41,6 +41,7 @@ describe("CreateUser Component", () => {
     //  TÄMÄ TESTI EI MILLÄÄN TOIMI YHDESSÄ TÄTÄ EDELTÄVÄN TESTIN KANSSA
     //  ERIKSEEN TOIMII, MUTTA EI YHDESSÄ.
     //  EI TOIMI EDES SUORAAN TIETOKANTAAN YHDISTETTYNÄ ILMAN AXIOS.MOCKEJA
+    //  LUOTU DELETE-TOIMINNOLLE OMA ERILLINEN TESTITIEDOSTO
     /*
     it("deletes the correct user", async () => {
         console.log("🟢 Testi alkaa");
