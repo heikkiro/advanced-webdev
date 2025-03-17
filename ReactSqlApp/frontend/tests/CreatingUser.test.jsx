@@ -1,110 +1,63 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, within, act } from "@testing-library/react";
-import axios from "axios";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import CreateUser from '../components/CreateUser';
-//import ReadDeleteUsers from '../components/ReadDeleteUsers';  // EI KÄYTETÄ
+import ReadDeleteUsers from '../components/ReadDeleteUsers';
 
-vi.mock("axios");
-
-// Luodaan satunnainen käyttäjänimi testeille
+// Create random user information
 const username = (Math.random() + 1).toString(36).substring(7);
-const year = Math.floor(Math.random() * (2010 - 1930 + 1)) + 1930;
-const month = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
-const day = ('0' + (Math.floor(Math.random() * 28) + 1)).slice(-2);
-const birthDate = `${year}-${month}-${day}`;
 const occupation = (Math.random() + 1).toString(36).substring(7);
+const birthDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
-describe("CreateUser Component", () => {
-    beforeEach(() => {
-        // Puhdista mockaukset ennen jokaista testiä, jotta vältetään ristiriitoja testien välillä
-        vi.clearAllMocks();
+/**
+ * Test Case: Adds a new user
+ * - Renders the CreateUser component
+ * - Fills out the username, birth date, occupation fields
+ * - Selects the premium user checkbox
+ * - Clicks the "Create" button
+ * - Checks if a success message appears with the new user's name
+ */
+it('adds a new user', async () => {
+    // Render the CreateUser component
+    render(<CreateUser onUserAdded={() => {}} />);
+
+    // Fill out userinformation
+    fireEvent.change(screen.getByPlaceholderText(/Username/i), { target: { value: username } });
+    fireEvent.change(screen.getByPlaceholderText(/Occupation/i), { target: { value: occupation } });
+    fireEvent.change(screen.getByLabelText(/Birth Date/i), { target: { value: birthDate } });
+    fireEvent.click(screen.getByLabelText(/Premium user/i)); // Click premium-Checkbox
+
+    // Click "Create"-button
+    fireEvent.click(screen.getByRole('button', { name: /Create/i }));
+
+    // Wait for confirmation message
+    const message = await screen.findByText(`User created successfully: ${username}`);
+    expect(message).toBeInTheDocument();
+});
+
+/**
+ * Test Case: Deletes the correct user
+ * - Renders the ReadDeleteUsers component
+ * - Waits for the newly created user to appear in the table
+ * - Finds the correct row containing that user
+ * - Clicks the "Delete" button inside that row
+ * - Verifies that the user is removed from the list
+ */
+it("deletes the correct user", async () => {
+    // Render the ReadDeleteUsers component
+    render(<ReadDeleteUsers refresh={0} />);
+
+    // Wait for user to appear in the table
+    const userRow = await screen.findByText(new RegExp(username, "i"));
+    
+    // get the row, where the user is
+    const tableRow = userRow.closest("tr");
+
+    // Find and click "Delete"-button
+    const deleteButton = tableRow.querySelector("button");
+    fireEvent.click(deleteButton);
+
+    // Ensure, that user has been deleted from the table
+    await waitFor(() => {
+        expect(screen.queryByText(new RegExp(username, "i"))).not.toBeInTheDocument();
     });
-
-    it("Adds a new user", async () => {
-        axios.post.mockResolvedValue({ data: { username } });
-        axios.get.mockResolvedValueOnce({ data: [{ id: 1, username, occupation, birthDate }] });
-
-        render(<CreateUser />);
-
-        fireEvent.change(screen.getByPlaceholderText("Username"), { target: { value: username } });
-        fireEvent.change(screen.getByPlaceholderText("Birth_date (YYYY-MM-DD)"), { target: { value: birthDate } });
-        fireEvent.change(screen.getByPlaceholderText("Occupation"), { target: { value: occupation } });
-
-        fireEvent.click(screen.getByText("Create"));
-
-        await waitFor(() => {
-            expect(screen.getByText(`User created successfully: ${username}`)).toBeInTheDocument();
-        });
-    });
-
-    //  TÄMÄ TESTI EI MILLÄÄN TOIMI YHDESSÄ TÄTÄ EDELTÄVÄN TESTIN KANSSA
-    //  ERIKSEEN TOIMII, MUTTA EI YHDESSÄ.
-    //  EI TOIMI EDES SUORAAN TIETOKANTAAN YHDISTETTYNÄ ILMAN AXIOS.MOCKEJA
-    //  LUOTU DELETE-TOIMINNOLLE OMA ERILLINEN TESTITIEDOSTO
-    /*
-    it("deletes the correct user", async () => {
-        console.log("🟢 Testi alkaa");
-
-        // Mockataan ensimmäinen axios.get, joka palauttaa käyttäjän
-        axios.get.mockResolvedValueOnce({ data: [{ id: 1, username, occupation }] });
-        console.log("🟢 Mockattu ensimmäinen axios.get");
-
-        // Mockataan axios.delete
-        axios.delete.mockResolvedValue({});
-        console.log("🟢 Mockattu axios.delete");
-
-        // Mockataan toinen axios.get, joka palauttaa tyhjän listan
-        axios.get.mockResolvedValueOnce({ data: [] });
-        console.log("🟢 Mockattu toinen axios.get");
-
-        await act(async () => {
-            render(<ReadDeleteUsers refresh={true} />);
-        });
-        console.log("🟢 Komponentti renderöity");
-
-        // Odotetaan, että käyttäjä ilmestyy listalle
-        await waitFor(() => {
-            expect(screen.getByText(username)).toBeInTheDocument();
-        });
-        console.log("🟢 Käyttäjä näkyy listalla");
-
-        // Etsitään käyttäjän rivi ja delete-nappi
-        const userRow = screen.getByText(username).closest("tr");
-        console.log("🔵 Käyttäjän rivi:", userRow?.innerHTML);
-
-        const deleteButton = within(userRow).getByText("Delete");
-        console.log("🟢 Delete-nappi löytyi:", deleteButton?.outerHTML);
-
-        // Klikataan delete-nappia act() sisällä
-        await act(async () => {
-            fireEvent.click(deleteButton);
-        });
-        console.log("🟢 Delete-nappi klikattu");
-
-        // Odotetaan, että axios.delete kutsutaan
-        await waitFor(() => {
-            expect(axios.delete).toHaveBeenCalledWith("http://localhost:3000/users/1");
-        });
-        console.log("🟢 axios.delete kutsuttu");
-
-        // Varmistetaan, että axios.get on kutsuttu uudelleen ja palauttaa tyhjän listan
-        await waitFor(() => {
-            expect(axios.get).toHaveBeenCalledTimes(2); // Varmistetaan, että axios.get on kutsuttu kaksi kertaa
-        });
-        console.log("🟢 Varmistettu, että axios.get on kutsuttu kaksi kertaa");
-
-        // Odotetaan, että käyttäjä poistetaan listalta
-        await waitFor(() => {
-            expect(screen.queryByText(username)).toBeNull();
-        });
-        console.log("🟢 Käyttäjä poistettu listalta");
-
-        // Lisää vielä yksi tarkistus varmistaaksesi, että lista on todella tyhjä
-        await waitFor(() => {
-            expect(screen.queryAllByText(username).length).toBe(0);
-        });
-        console.log("🟢 Varmistettu, että käyttäjä on poistettu listalta");
-    });
-    */
 });
