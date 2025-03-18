@@ -34,7 +34,7 @@ const CreateUser = ({ onUserAdded }) => {
     return (
         <div className="container mt-4">
             <h2>Create New User</h2>
-            <form onSubmit={handleSubmit}>
+            <form id="create-user-form" onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label className="form-label">Username:</label>
                     <input
